@@ -19,7 +19,7 @@ public class Config
     /**
      * 是否是索引分词（合理地最小分割）
      */
-    public boolean indexMode = false;
+    public int indexMode = 0;
     /**
      * 是否识别中国人名
      */
@@ -44,6 +44,10 @@ public class Config
      * 是否加载用户词典
      */
     public boolean useCustomDictionary = true;
+    /**
+     * 用户词典高优先级
+     */
+    public boolean forceCustomDictionary = false;
     /**
      * 词性标注
      */

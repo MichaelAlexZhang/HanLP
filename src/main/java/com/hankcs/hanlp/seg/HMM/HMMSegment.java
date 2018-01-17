@@ -48,22 +48,20 @@ public class HMMSegment extends CharacterBasedGenerativeModelSegment
             ByteArray byteArray = ByteArray.createByteArray(modelPath);
             if (byteArray == null)
             {
-                logger.severe("HMM分词模型[ " + modelPath + " ]不存在" );
-                System.exit(-1);
+                throw new IllegalArgumentException("HMM分词模型[ " + modelPath + " ]不存在");
             }
             model.load(byteArray);
         }
         catch (Exception e)
         {
-            logger.severe("发生了异常：" + TextUtility.exceptionToString(e));
-            System.exit(-1);
+            throw new IllegalArgumentException("发生了异常：" + TextUtility.exceptionToString(e));
         }
         logger.info("加载成功，耗时：" + (System.currentTimeMillis() - start) + " ms");
         GlobalObjectPool.put(modelPath, model);
     }
 
     @Override
-    protected List<Term> segSentence(char[] sentence)
+    protected List<Term> roughSegSentence(char[] sentence)
     {
         char[] tag = model.tag(sentence);
         List<Term> termList = new LinkedList<Term>();

@@ -47,7 +47,7 @@ public class AhoCorasickDoubleArrayTrieTest extends TestCase
                 System.out.printf("[%d:%d]=%s\n", begin, end, value);
             }
         });
-        // 或者System.out.println(act.parseText("uhers"));
+        // 或者System.out.println(act.parseLongestText("uhers"));
     }
 
     public void testDatFromFile() throws Exception
@@ -184,7 +184,7 @@ public class AhoCorasickDoubleArrayTrieTest extends TestCase
 //    public void testCoreDictionaryACDAT() throws Exception
 //    {
 //        final String text = "商品和服务";
-//        CoreDictionary.trie.parseText(text, new AhoCorasickDoubleArrayTrie.IHit<CoreDictionary.Attribute>()
+//        CoreDictionary.trie.parseLongestText(text, new AhoCorasickDoubleArrayTrie.IHit<CoreDictionary.Attribute>()
 //        {
 //            @Override
 //            public void hit(int begin, int end, CoreDictionary.Attribute value)
@@ -193,4 +193,28 @@ public class AhoCorasickDoubleArrayTrieTest extends TestCase
 //            }
 //        });
 //    }
+
+  public void testHasKeyword() throws Exception
+  {
+      TreeMap<String, String> map = new TreeMap<String, String>();
+      String[] keyArray = new String[]
+              {
+                      "hers",
+                      "his",
+                      "she",
+                      "he"
+              };
+      for (String key : keyArray)
+      {
+          map.put(key, key);
+      }
+      Trie trie = new Trie();
+      trie.addAllKeyword(map.keySet());
+      for (String key : keyArray)
+      {
+        assertTrue(trie.hasKeyword(key));
+      }
+      assertTrue(trie.hasKeyword("ushers"));
+      assertFalse(trie.hasKeyword("构建耗时"));
+  }
 }
